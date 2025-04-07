@@ -25,7 +25,6 @@ Built with **React + Vite**, using HTML5 Canvas for real-time visuals and deploy
 ## 🚀 Live Demo
 
 👉 [https://peika44.github.io/tessellation-app/](https://peika44.github.io/tessellation-app/)  
-_(Replace with your actual deployed GitHub Pages link)_
 
 ---
 
@@ -43,7 +42,7 @@ _(Replace with your actual deployed GitHub Pages link)_
 ### Setup
 
 ```bash
-git clone https://github.com/yourusername/tessellation-app.git
+git clone 
 cd tessellation-app
 npm install
 npm run dev
