@@ -46,7 +46,13 @@ const StarfieldIntro = ({ onEnter }) => {
     const ctx = canvas.getContext("2d");
     const width = canvas.width;
     const height = canvas.height;
+    const centerX = width / 2;
+    const centerY = height / 2;
+    const mouseOffsetX = mouseRef.current.x != null ? (mouseRef.current.x - centerX) / width : 0;
+    const mouseOffsetY = mouseRef.current.y != null ? (mouseRef.current.y - centerY) / height : 0;
+    const mouseSpeed = Math.sqrt(mouseOffsetX ** 2 + mouseOffsetY ** 2);
 
+    
     const delta = timestamp - (lastTimeRef.current || timestamp);
     lastTimeRef.current = timestamp;
 
@@ -77,7 +83,9 @@ const StarfieldIntro = ({ onEnter }) => {
       // Idle drift
       if (phase === "idle") {
         star.x -= 0.02 * delta;
+        star.x += mouseOffsetX * 0.2 * delta;
         star.y += 0.01 * delta;
+        star.y += mouseOffsetY * 0.2 * delta;
       }
 
       // After click: move in Z (toward screen)
@@ -156,30 +164,35 @@ const StarfieldIntro = ({ onEnter }) => {
   }, [phase, onEnter]);
 
   return (
-    <div style={{ width: "100vw", height: "100vh", overflow: "hidden", background: "black", position: "relative" }}>
-      <canvas ref={canvasRef} style={{ display: "block", position: "absolute", top: 0, left: 0 }} />
-      {phase === "idle" && (
-        <div
-          style={{
-            position: "absolute",
-            top: "72%",
-            left: "50%",
-            transform: "translateX(-50%)",
-            color: "#fff",
-            padding: "12px 24px",
-            fontSize: "16px",
-            background: "rgba(255,255,255,0.05)",
-            border: "1px solid rgba(255,255,255,0.2)",
-            borderRadius: "12px",
-            backdropFilter: "blur(6px)",
-            cursor: "pointer",
-            userSelect: "none",
-            zIndex: 1,
-          }}
-        >
-          Click to enter
-        </div>
-      )}
+    <div style={{ 
+      width: "100vw", 
+      height: "100vh", 
+      overflow: "hidden", 
+      background: "black",
+      position: "relative"
+    }}>
+      <canvas
+        ref={canvasRef}
+        style={{
+          display: "block",
+          position: "absolute",
+          top: 0,
+          left: 0
+        }}
+      />
+      <div style={{
+          position: "absolute",
+          bottom: "100px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          color: "white",
+          textAlign: "center",
+          fontSize: "14px",
+          opacity: phase === "idle" ? 0.7 : 0,
+          transition: "opacity 0.5s ease",
+      }}>
+        <p>Use mouse to navigate stars | Scroll to adjust speed</p>
+      </div>
     </div>
   );
 };

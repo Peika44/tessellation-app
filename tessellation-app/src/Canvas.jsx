@@ -4,6 +4,7 @@ import getShapeGenerator from "./ShapeFactory";
 export default function Canvas({ trigger, shape = "triangle" }) {
   const canvasRef = useRef(null);
 
+
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -12,6 +13,10 @@ export default function Canvas({ trigger, shape = "triangle" }) {
     canvas.height = window.innerHeight;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+
+    ctx.fillStyle = "#111";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
