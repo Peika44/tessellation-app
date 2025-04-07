@@ -1,11 +1,10 @@
-export default function generateHexagonTiles(canvas, radius = 35) {
+export default function generateHexagonTiles(width, height, radius = 35) {
   const tiles = [];
-  const width = 1.15 * canvas.width;
-  const height = 2 * canvas.height;
 
   const hexHeight = Math.sqrt(3) * radius;
   const horizSpacing = radius * 3;
   const vertSpacing = hexHeight;
+  height = 2 * height;
 
   for (let row = 0; row * vertSpacing < height + hexHeight; row++) {
     for (let col = -1; col * horizSpacing < width + horizSpacing; col++) {
